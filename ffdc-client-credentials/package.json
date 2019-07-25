@@ -1,0 +1,31 @@
+{
+  "name": "ffdc-node-sample",
+  "version": "1.0.0",
+  "description": "Demo app to show how to retrieve and use an ffdc access token with the client credential flow",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node -r dotenv/config src/index.js",
+    "watch-node": "nodemon src/*",
+    "serve-debug": "nodemon --inspect src/index.js"
+  },
+  "author": "Davide Appiano",
+  "maintainers": [
+    {
+      "name": "Davide Appiano",
+      "email": "davide.appiano@gmail.com"
+    }
+  ],
+  "homepage": "https://developer.fusionfabric.cloud",
+  "license": "GPL",
+  "devDependencies": {
+    "nodemon": "^1.18.6"
+  },
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "node-fetch": "^2.3.0",
+    "openid-client": "^2.4.5",
+    "readline-sync": "^1.4.9",
+    "request": "^2.88.0"
+  }
+}

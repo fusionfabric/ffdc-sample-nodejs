@@ -1,0 +1,24 @@
+<html lang="en">
+  <head>
+    <% include ../partials/head %>
+  </head>
+  <body class="container-fluid">
+    <header>
+      <% include ../partials/header %>
+    </header>
+
+    <main class="main">
+      <p>
+      You successfully logged in with token: 
+      <% if(token !== ''){ %>
+        <%= token %>
+      <% } %>
+      </p>
+      <p>Use the Get Data button to load data</p>
+    </main>
+
+    <footer>
+      <% include ../partials/footer %>
+    </footer>
+  </body>
+</html>
