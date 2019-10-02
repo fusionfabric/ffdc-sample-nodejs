@@ -1,0 +1,31 @@
+<html lang="en">
+
+<head>
+  <% include ../partials/head %>
+</head>
+
+<body class="container-fluid">
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <main class="main">
+    <div class="row">
+      <% results.forEach(function(result) { %>
+      <div class="col-lg-2 col-md-4 col-sm-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><%= result.name %></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><%= result.currency %></h6>
+            <h7 class="card-subtitle mb-2 text-muted"><%= result.alpha3code %></h7>
+          </div>
+        </div>
+      </div>
+      <% }); %>
+    </div>
+  </main>
+  <footer>
+    <% include ../partials/footer %>
+  </footer>
+</body>
+
+</html>

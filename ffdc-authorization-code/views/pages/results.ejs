@@ -1,36 +1,39 @@
 <html lang="en">
-  <head>
-    <% include ../partials/head %>
-  </head>
-  <body class="container-fluid">
-    <header>
-      <% include ../partials/header %>
-    </header>
-    <main class="main">
+
+<head>
+  <% include ../partials/head %>
+</head>
+
+<body class="container-fluid">
+  <header>
+    <% include ../partials/header %>
+  </header>
+  <main class="main">
     <div class="row">
       <% entities.forEach(function(entity) { %>
       <div class="col-lg-2 col-md-4 col-sm-6">
         <div class="card">
-            <div class="card-body">
+          <div class="card-body">
             <h5 class="card-title"><%= entity.id %></h5>
             <h6 class="card-subtitle mb-2 text-muted"><%= entity.description %></h6>
             <p></p>
             <p class="card-text">
-                <strong>Applicable entities:</strong>
+              <strong>Applicable entities:</strong>
             </p>
-            <ul class="list-group list-group-flush">           
-                <% entity.applicableEntities.forEach(function(detail) { %>
-                <li class="list-group-item"><%= detail %></li>
-                <% }); %>
+            <ul class="list-group list-group-flush">
+              <% entity.applicableEntities.forEach(function(detail) { %>
+              <li class="list-group-item"><%= detail %></li>
+              <% }); %>
             </ul>
-            </div>
+          </div>
         </div>
       </div>
       <% }); %>
-      </div>
-    </main>
-    <footer>
-      <% include ../partials/footer %>
-    </footer>
-  </body>
+    </div>
+  </main>
+  <footer>
+    <% include ../partials/footer %>
+  </footer>
+</body>
+
 </html>

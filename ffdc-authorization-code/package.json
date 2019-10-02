@@ -13,8 +13,10 @@
     "express": "^4.14.0"
   },
   "dependencies": {
+    "uuid": "^3.3.3",
     "dotenv": "^8.0.0",
     "ejs": "^2.6.2",
+    "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.3.0",
     "readline-sync": "^1.4.9",
     "request": "^2.88.0",
