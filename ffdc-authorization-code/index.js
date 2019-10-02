@@ -1,97 +1,81 @@
-'use strict';
+'use strict'
+const fetch = require('node-fetch')
+const express = require('express')
+const config = require('./config.js')
+const helpers = require('./helpers.js')
 
-const simpleOauthModule = require('simple-oauth2');
-const fetch = require('node-fetch');
-const express = require('express');
-const app = express();
+const app = express()
+global.Headers = fetch.Headers
 
-global.Headers = fetch.Headers;
+app.listen(config.port, () => console.log(`Sample app listening on port ${config.port}!`))
 
-const callbackUrl = process.env.REDIRECT_URI;
+app.set('view engine', 'ejs')
+app.use(express.static(__dirname + '/public'))
 
-const oauth2 = simpleOauthModule.create({
-  client: {
-    id: process.env.CLIENT_ID,
-    secret: process.env.CLIENT_SECRET
-  },
-  auth: {
-    tokenHost: process.env.BASE_URL,
-    tokenPath: process.env.TOKEN_ENDPOINT,
-    authorizePath: process.env.AUTHORIZATION_ENDPOINT,
-  }
-});
+let oauth2
+let access_token
+global.strong = config.strong
 
-app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
+// Home page
+app.get('/', (req, res) => {
+  res.render('pages/index')
+})
 
-app.get('/', (req, res) => res.render('pages/index'));
-
+// Login
 app.get('/login', (req, res) => {
-  // Authorization uri definition
-  const authorizationUri = oauth2.authorizationCode.authorizeURL({
-    redirect_uri: callbackUrl,
-    scope: process.env.SCOPE,
-  });
+  oauth2 = helpers.oauth2Creation()
 
-  res.redirect(authorizationUri);
-});
+  const authorizationUri = helpers.getAuthUri(oauth2)
 
-app.get('/logout', (req, res) => {
-  // Cleanup access token
-  access_token = '';
-
-  // Back to index file
-  res.redirect('/');
-});
-
-let access_token = '';
+  res.redirect(authorizationUri)
+})
 
 // Callback service parsing the authorization token and asking for the access token
 app.get('/callback', async (req, res, next) => {
-  const code = req.query.code;
-  const options = {
-    code,
-    redirect_uri: callbackUrl,
-  };
+  const code = req.query.code
 
   try {
-    const result = await oauth2.authorizationCode.getToken(options);
-    const accessToken = oauth2.accessToken.create(result);
-    console.log('The resulting token: ', result);
+    const tokenConfig = helpers.getTokenConfig(code)
+    const result = await oauth2.authorizationCode.getToken(tokenConfig)
+    const accessToken = oauth2.accessToken.create(result)
 
-    access_token = accessToken.token.access_token;
+    access_token = accessToken.token.access_token
 
   } catch (error) {
-    return res.render('pages/error', { error: error.message });
+    return res.render('pages/error', { error: error.message })
   }
 
-  res.render('pages/auth', { token: access_token });
-});
+  res.render('pages/auth', { token: access_token })
+})
 
+// Get results
 app.get('/results', async (req, res, next) => {
+  try {
+    var url = config.baseUrl + '/capital-market/trade-capture/static-data/v1/reference-sources?applicableEntities=legal-entities'
 
-  var url = process.env.BASE_URL + '/capital-market/trade-capture/static-data/v1/reference-sources?applicableEntities=legal-entities';
-
-  const response = await fetch(url, {
-    method: 'get',
-    headers: new Headers({
-      Authorization: 'Bearer ' + access_token,
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
+    const response = await fetch(url, {
+      method: 'get',
+      headers: new Headers({
+        Authorization: 'Bearer ' + access_token,
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      })
     })
-  });
 
-  if (!response.ok) {
-    return res.render('pages/error', {
-      error: response.statusText,
-    });
+    if (!response.ok) {
+      return res.render('pages/error', { error: response.statusText });
+    }
+    
+    const entities = await response.json()
+
+    return res.render('pages/results', { entities: entities.items })
+  } catch (error) {
+    return res.render('pages/error', { error: error })
   }
+})
 
-  const entities = await response.json();
-
-  res.render('pages/results', {
-    entities: entities.items,
-  });
-});
-
-app.listen(process.env.PORT);
+// Logout
+app.get('/logout', (req, res) => {
+  access_token = null
+  res.render('pages/logout', { logout: "You successfully removed the access token." })
+})

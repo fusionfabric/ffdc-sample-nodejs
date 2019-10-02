@@ -18,6 +18,8 @@ coverage
 
 # API keys and secrets
 .env
+private.key
+
 
 # Dependency directory
 node_modules
