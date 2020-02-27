@@ -2,17 +2,17 @@
 
 This sample project shows how to obtain an access grant (in the form of a token) from the **Fusion**Fabric.cloud Authorization Server, using the OAuth2 authorization code grant flow, and how to use the access grant to request for resources exposed by the **Fusion**Fabric.cloud APIs.
 
-> For more information about the different authentication methods available in FusionFabric.cloud, see the [documentation](https://developer.fusionfabric.cloud/documentation?workspace=FusionCreator%20Developer%20Portal&board=Home&uri=oauth2-grants.html).
+> For more information about the different authentication methods available in FusionFabric.cloud, see the [documentation](https://developer.fusionfabric.cloud/documentation/oauth2-grants).
   
  **To run this sample**
 
-1. Register an application on [**Fusion**Fabric.cloud Developer Portal](https://developer.fusionfabric.cloud), and include the **Static Data for Trade Capture API**.  Use `https://localhost:3000/callback` as the reply URL.
+1. Register an application on [**Fusion**Fabric.cloud Developer Portal](https://developer.fusionfabric.cloud), and include the [Static Data for Trade Capture API](https://developer.fusionfabric.cloud/api/trading-trade-capture-static-data-8faddb99-a71f-464d-9c3d-2220baacc299/docs).  Use `https://localhost:3000/callback` as the reply URL.
 2. Clone the current project.
 3. Copy `.env.sample` to `.env`, open it, and enter `<%YOUR-CLIENT-ID%>`, and `<%YOUR-SECRET-KEY%>` of the application created at the step 1.
 
-> The `AUTHORIZATION_ENDPOINT` and `TOKEN_ENDPOINT` are the authorization and toke endpoints provided by the [Discovery service](https://developer.fusionfabric.cloud/documentation?workspace=FusionCreator%20Developer%20Portal&board=Home&uri=oauth2-grants.html#discovery-service) of the **Fusion**Fabric.cloud Developer Portal.  
+> The `AUTHORIZATION_ENDPOINT` and `TOKEN_ENDPOINT` are the authorization and toke endpoints provided by the [Discovery service](https://developer.fusionfabric.cloud/documentation/oauth2-grants#discovery-service) of the **Fusion**Fabric.cloud Developer Portal.  
 
-4. (Optional) If you want to use private key authentication, instead of the standard authentication based on secret value, follow [the steps from the documentation](https://developer.fusionfabric.cloud/documentation?workspace=FusionCreator%20Developer%20Portal&board=Home&uri=oauth2-grants.html#jwk-auth-procedure) to sign and upload a JSON Web Key to your application, and save the private RSA key in a file named **private.key**. Edit `.env` as follows:
+4. (Optional) If you want to use private key authentication, instead of the standard authentication based on secret value, follow [the steps from the documentation](https://developer.fusionfabric.cloud/documentation/oauth2-grants#jwk-auth-procedure) to sign and upload a JSON Web Key to your application, and save the private RSA key in a file named **private.key**. Edit `.env` as follows:
 + remove or comment the line containing the secret value: 
 ```
 # CLIENT_SECRET="<%YOUR-SECRET-KEY%>"
