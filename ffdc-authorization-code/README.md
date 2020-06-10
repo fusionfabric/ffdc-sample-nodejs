@@ -6,28 +6,29 @@ This sample project shows how to obtain an access grant (in the form of a token)
   
  **To run this sample**
 
-1. Register an application on [**Fusion**Fabric.cloud Developer Portal](https://developer.fusionfabric.cloud), and include the [Static Data for Trade Capture API](https://developer.fusionfabric.cloud/api/trading-trade-capture-static-data-8faddb99-a71f-464d-9c3d-2220baacc299/docs).  Use `https://localhost:3000/callback` as the reply URL.
-2. Clone the current project.
-3. Copy `.env.sample` to `.env`, open it, and enter `<%YOUR-CLIENT-ID%>`, and `<%YOUR-SECRET-KEY%>` of the application created at the step 1.
+1. Register an application on [**Fusion**Fabric.cloud Developer Portal](https://developer.fusionfabric.cloud), click on **APIs** block and include the **Static Data for Trade Capture API** in the **APIs** tab.
+2. Switch to **Security** tab and use `http://localhost:3000/callback` as the reply URL.  
+3. Clone the current project.
+4. Copy `.env.sample` to `.env`, open it, and enter `<%YOUR-CLIENT-ID%>`, and `<%YOUR-SECRET-KEY%>` of the application created at the step 1.
 
 > The `AUTHORIZATION_ENDPOINT` and `TOKEN_ENDPOINT` are the authorization and toke endpoints provided by the [Discovery service](https://developer.fusionfabric.cloud/documentation/oauth2-grants#discovery-service) of the **Fusion**Fabric.cloud Developer Portal.  
 
-4. (Optional) If you want to use private key authentication, instead of the standard authentication based on secret value, follow [the steps from the documentation](https://developer.fusionfabric.cloud/documentation/oauth2-grants#jwk-auth-procedure) to sign and upload a JSON Web Key to your application, and save the private RSA key in a file named **private.key**. Edit `.env` as follows:
+5. (Optional) If you want to use private key authentication, instead of the standard authentication based on secret value, follow [the steps from the documentation](https://developer.fusionfabric.cloud/documentation/oauth2-grants#jwk-auth) to sign and upload a JSON Web Key to your application, and save the private RSA key in a file named **private.key**. Edit `.env` as follows:
 + remove or comment the line containing the secret value: 
 ```
 # CLIENT_SECRET="<%YOUR-SECRET-KEY%>"
 ```
 + set `STRONG=True`
 
-5. Install the dependencies and start the server:
+6. Install the dependencies and start the server:
 ```sh
 $ npm install
 $ npm start
 ```
 
-6. Point your browser to http://localhost:3000. The landing page of this sample client application is displayed. 
-7. Click **Login**. You are redirected to the **Fusion**Fabric.cloud Developer Portal Authorization Server.
-8. Log in with one of the following credentials:
+7. Point your browser to http://localhost:3000. The landing page of this sample client application is displayed. 
+8. Click **Login**. You are redirected to the **Fusion**Fabric.cloud Developer Portal Authorization Server.
+9. Log in with one of the following credentials:
 
 | User        | Password |
 | :---------- | :------- |
